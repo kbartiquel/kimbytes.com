@@ -3,339 +3,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kimbytes - AI-Powered Apps</title>
+    <title>Kimbytes — AI-Powered Apps by Kimbert Bartiquel</title>
+    <meta name="description" content="Kimbytes builds AI-powered iOS apps: Viral Trends, Quizziz AI Flashcards, EasySlides, Photo Captions AI, Plantree, Closet.ly, and Monthly Budget.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-0: #0a0a1a;
+            --bg-1: #12122b;
+            --text: #e8eaf6;
+            --muted: #8b93b8;
+            --line: rgba(255, 255, 255, 0.08);
         }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+            background: var(--bg-0);
+            color: var(--text);
             min-height: 100vh;
-            color: #ffffff;
+            overflow-x: hidden;
         }
 
-        .hero {
-            text-align: center;
-            padding: 80px 20px 60px;
-            position: relative;
-            overflow: hidden;
+        /* ---------- ambient background ---------- */
+        .bg {
+            position: fixed; inset: 0; z-index: -1;
+            background:
+                radial-gradient(600px 400px at 15% 0%, rgba(99, 102, 241, 0.16), transparent 60%),
+                radial-gradient(700px 500px at 85% 10%, rgba(236, 72, 153, 0.10), transparent 60%),
+                radial-gradient(800px 600px at 50% 100%, rgba(6, 182, 212, 0.08), transparent 60%),
+                linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-0) 100%);
+        }
+        .bg::after {
+            content: ''; position: absolute; inset: 0;
+            background-image: radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-size: 32px 32px;
+            -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 100%);
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 0%, transparent 100%);
         }
 
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.1) 0%, transparent 50%);
-            animation: pulse 15s ease-in-out infinite;
-        }
+        .wrap { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); opacity: 0.5; }
-            50% { transform: scale(1.1); opacity: 0.8; }
+        /* ---------- nav ---------- */
+        nav {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 22px 0;
         }
+        .brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+        .brand img { width: 38px; height: 38px; border-radius: 10px; }
+        .brand span { font-weight: 700; font-size: 1.1rem; color: var(--text); letter-spacing: -0.01em; }
+        .nav-links { display: flex; gap: 26px; }
+        .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: color .2s; }
+        .nav-links a:hover { color: #fff; }
+        @media (max-width: 560px) { .nav-links { display: none; } }
 
-        .hero-content {
-            position: relative;
-            z-index: 1;
+        /* ---------- hero ---------- */
+        .hero { text-align: center; padding: 90px 0 70px; }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            font-size: 0.8rem; font-weight: 600; color: #a5b4fc;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            padding: 7px 16px; border-radius: 999px; margin-bottom: 28px;
         }
-
-        .logo {
-            width: 100px;
-            height: 100px;
-            border-radius: 24px;
-            margin-bottom: 24px;
-            box-shadow: 0 20px 60px rgba(99, 102, 241, 0.3);
-        }
-
+        .hero-badge .dot { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 10px #34d399; }
         h1 {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            font-size: clamp(2.4rem, 6vw, 4rem);
+            font-weight: 800; letter-spacing: -0.03em; line-height: 1.08;
+            margin-bottom: 22px;
         }
-
-        .tagline {
-            font-size: 1.25rem;
-            color: #a5b4fc;
-            max-width: 500px;
-            margin: 0 auto;
-            line-height: 1.6;
+        h1 .grad {
+            background: linear-gradient(120deg, #818cf8 0%, #ec4899 55%, #f59e0b 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
         }
-
-        .apps-section {
-            padding: 40px 20px 80px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .hero p {
+            font-size: 1.15rem; color: var(--muted); line-height: 1.7;
+            max-width: 560px; margin: 0 auto 40px;
         }
-
-        .section-title {
-            text-align: center;
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 40px;
-            color: #e2e8f0;
+        .hero-stats {
+            display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
         }
+        .stat { text-align: center; }
+        .stat b { display: block; font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; }
+        .stat span { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
 
-        .apps-grid {
+        /* ---------- section headers ---------- */
+        .section { padding: 50px 0; }
+        .section-head { text-align: center; margin-bottom: 44px; }
+        .section-head h2 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
+        .section-head p { color: var(--muted); font-size: 1rem; }
+
+        /* ---------- app grid ---------- */
+        .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 20px;
         }
-
-        .app-card {
-            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 100%);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 32px;
-            transition: all 0.3s ease;
+        .card {
+            --accent: #6366f1;
             position: relative;
-            overflow: hidden;
+            background: linear-gradient(160deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.015) 100%);
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 26px;
+            display: flex; flex-direction: column;
+            transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
         }
-
-        .app-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--accent-color), var(--accent-secondary));
+        .card::before {
+            content: ''; position: absolute; inset: -1px; border-radius: 22px; padding: 1px;
+            background: linear-gradient(160deg, var(--accent), transparent 45%);
+            -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude;
+            opacity: 0; transition: opacity .3s ease;
+            pointer-events: none;
         }
+        .card:hover { transform: translateY(-6px); box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+        .card:hover::before { opacity: 1; }
 
-        .app-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
-
-        .app-card.social { --accent-color: #ec4899; --accent-secondary: #f472b6; }
-        .app-card.quiz { --accent-color: #8b5cf6; --accent-secondary: #a78bfa; }
-        .app-card.photo { --accent-color: #06b6d4; --accent-secondary: #22d3ee; }
-        .app-card.ppt { --accent-color: #10b981; --accent-secondary: #34d399; }
-
+        .card-top { display: flex; align-items: center; gap: 16px; margin-bottom: 16px; }
         .app-icon {
-            width: 64px;
-            height: 64px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            margin-bottom: 20px;
-            background: linear-gradient(135deg, var(--accent-color), var(--accent-secondary));
+            width: 64px; height: 64px; border-radius: 15px; flex-shrink: 0;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
         }
+        .app-name { font-size: 1.08rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+        .app-sub { font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
 
-        .app-name {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 12px;
-            color: #ffffff;
+        .meta { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; flex-wrap: wrap; }
+        .chip {
+            font-size: 0.72rem; font-weight: 600; padding: 4px 11px; border-radius: 999px;
+            color: color-mix(in srgb, var(--accent) 60%, white);
+            background: color-mix(in srgb, var(--accent) 16%, transparent);
+            border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
         }
+        .stars { font-size: 0.8rem; color: #fbbf24; font-weight: 600; letter-spacing: 0.05em; }
+        .stars small { color: var(--muted); font-weight: 500; letter-spacing: 0; }
 
-        .app-description {
-            font-size: 0.95rem;
-            color: #94a3b8;
-            line-height: 1.7;
-            margin-bottom: 24px;
+        .app-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.65; margin-bottom: 22px; flex: 1; }
+
+        .card-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .store-btn {
+            display: inline-flex; align-items: center; gap: 9px;
+            background: #fff; color: #0a0a1a;
+            text-decoration: none; font-weight: 600; font-size: 0.85rem;
+            padding: 10px 16px; border-radius: 11px;
+            transition: transform .2s ease, box-shadow .2s ease;
         }
+        .store-btn:hover { transform: scale(1.04); box-shadow: 0 8px 24px rgba(255,255,255,0.15); }
+        .store-btn svg { width: 16px; height: 16px; }
+        .legal { display: flex; gap: 12px; }
+        .legal a { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+        .legal a:hover { color: #fff; }
 
-        .app-links {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
+        /* ---------- tools ---------- */
+        .tool-card {
+            display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+            background: linear-gradient(120deg, rgba(139,92,246,0.14), rgba(236,72,153,0.08));
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 22px; padding: 28px 30px;
+            text-decoration: none; color: var(--text);
+            transition: transform .3s ease, border-color .3s ease;
         }
-
-        .app-link {
-            font-size: 0.85rem;
-            color: #a5b4fc;
-            text-decoration: none;
-            transition: color 0.2s ease;
+        .tool-card:hover { transform: translateY(-4px); border-color: rgba(139,92,246,0.6); }
+        .tool-emoji {
+            width: 58px; height: 58px; border-radius: 15px; flex-shrink: 0;
+            display: flex; align-items: center; justify-content: center; font-size: 26px;
+            background: linear-gradient(135deg, #8b5cf6, #ec4899);
         }
+        .tool-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
+        .tool-card p { font-size: 0.88rem; color: var(--muted); }
+        .tool-card .go { margin-left: auto; color: #a5b4fc; font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
 
-        .app-link:hover {
-            color: #ffffff;
-        }
-
-        .store-badges {
-            display: flex;
-            gap: 12px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .store-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 0.85rem;
-            font-weight: 500;
-            transition: background 0.2s ease;
-        }
-
-        .store-badge:hover {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .store-badge svg {
-            width: 20px;
-            height: 20px;
-        }
-
+        /* ---------- footer ---------- */
         footer {
+            margin-top: 70px; padding: 44px 0 50px;
+            border-top: 1px solid var(--line);
             text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
+        .footer-links { display: flex; justify-content: center; gap: 26px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--muted); text-decoration: none; font-size: 0.88rem; transition: color .2s; }
+        .footer-links a:hover { color: #fff; }
+        .copyright { color: #5b6285; font-size: 0.82rem; }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 24px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s ease;
-        }
-
-        .footer-links a:hover {
-            color: #ffffff;
-        }
-
-        .copyright {
-            color: #64748b;
-            font-size: 0.85rem;
-        }
-
-        @media (max-width: 640px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .tagline {
-                font-size: 1rem;
-            }
-
-            .hero {
-                padding: 60px 20px 40px;
-            }
-
-            .app-card {
-                padding: 24px;
-            }
-
-            .apps-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+        /* ---------- reveal animation ---------- */
+        .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
+        .reveal.in { opacity: 1; transform: none; }
+        @media (prefers-reduced-motion: reduce) { .reveal { opacity: 1; transform: none; transition: none; } }
     </style>
 </head>
 <body>
-    <section class="hero">
-        <div class="hero-content">
-            <img src="icon.png" alt="Kimbytes Logo" class="logo">
-            <h1>Kimbytes</h1>
-            <p class="tagline">Building AI-powered apps that make your life easier and more creative</p>
-        </div>
-    </section>
+    <div class="bg"></div>
 
-    <section class="apps-section">
-        <h2 class="section-title">Our Apps</h2>
-        <div class="apps-grid">
-            <div class="app-card social">
-                <div class="app-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
-                    </svg>
-                </div>
-                <h3 class="app-name">AI Social Media Content Expert</h3>
-                <p class="app-description">Generate engaging social media content with the power of AI. Create captions, hashtags, and content ideas effortlessly for all your platforms.</p>
-                <div class="app-links">
-                    <a href="privacy.html" class="app-link">Privacy Policy</a>
-                    <a href="terms.html" class="app-link">Terms & Conditions</a>
-                </div>
+    <div class="wrap">
+        <nav>
+            <a href="#" class="brand">
+                <img src="icon.png" alt="Kimbytes">
+                <span>Kimbytes</span>
+            </a>
+            <div class="nav-links">
+                <a href="#apps">Apps</a>
+                <a href="#tools">Tools</a>
+                <a href="support.html">Support</a>
+                <a href="https://apps.apple.com/ph/developer/kimbert-bartiquel/id1711135825" target="_blank" rel="noopener">App&nbsp;Store</a>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="hero-badge"><span class="dot"></span> 7 apps live on the App&nbsp;Store</div>
+            <h1>Apps that put <span class="grad">AI to work</span><br>for everyday life</h1>
+            <p>Kimbytes builds fast, focused iOS apps — from viral content creation and AI study tools to plant identification and budgeting.</p>
+            <div class="hero-stats">
+                <div class="stat"><b>7</b><span>Apps shipped</span></div>
+                <div class="stat"><b>AI-first</b><span>Every product</span></div>
+                <div class="stat"><b>iOS</b><span>Built native</span></div>
+            </div>
+        </section>
+
+        <section class="section" id="apps">
+            <div class="section-head">
+                <h2>The Apps</h2>
+                <p>Everything live on the App Store, by <a href="https://apps.apple.com/ph/developer/kimbert-bartiquel/id1711135825" target="_blank" rel="noopener" style="color:#a5b4fc;text-decoration:none">Kimbert Bartiquel</a></p>
             </div>
 
-            <div class="app-card quiz">
-                <div class="app-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
-                        <line x1="12" y1="17" x2="12.01" y2="17"></line>
-                    </svg>
-                </div>
-                <h3 class="app-name">AI Quiz Generator Test Maker</h3>
-                <p class="app-description">Create quizzes and tests instantly using AI. Perfect for educators, students, and anyone who wants to generate educational content quickly.</p>
-                <div class="app-links">
-                    <a href="ai-quiz-privacy-policy.html" class="app-link">Privacy Policy</a>
-                    <a href="ai-quiz-terms.html" class="app-link">Terms & Conditions</a>
-                </div>
-            </div>
+            <div class="grid">
 
-            <div class="app-card photo">
-                <div class="app-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-                        <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                        <circle cx="8.5" cy="8.5" r="1.5"></circle>
-                        <polyline points="21 15 16 10 5 21"></polyline>
-                    </svg>
+                <!-- Viral Trends -->
+                <div class="card reveal" style="--accent:#ec4899">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/3d/49/e1/3d49e185-2915-8e15-7408-5ef047257a9e/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg" alt="Viral Trends icon" loading="lazy">
+                        <div>
+                            <div class="app-name">Viral Trends: Post Maker</div>
+                            <div class="app-sub">AI Caption, Hashtag &amp; Carousel</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Social</span>
+                        <span class="stars">★ 4.8 <small>(4)</small></span>
+                    </div>
+                    <p class="app-desc">Spot what's trending — then turn it into a post in seconds. AI captions, hashtags, carousels, photo quotes and scripts for every platform.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/ph/app/viral-trends-post-maker/id6468975184" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                        <div class="legal">
+                            <a href="privacy.html">Privacy</a>
+                            <a href="terms.html">Terms</a>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="app-name">Photo Captions AI</h3>
-                <p class="app-description">Generate perfect captions for your photos using AI. Get creative, witty, or professional captions tailored to your images instantly.</p>
-                <div class="app-links">
-                    <a href="photo_caption_policy.html" class="app-link">Privacy Policy</a>
-                    <a href="photo_caption_terms.html" class="app-link">Terms & Conditions</a>
-                </div>
-            </div>
 
-            <div class="app-card ppt">
-                <div class="app-icon">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="32" height="32">
-                        <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-                        <line x1="8" y1="21" x2="16" y2="21"></line>
-                        <line x1="12" y1="17" x2="12" y2="21"></line>
-                    </svg>
+                <!-- Quizziz -->
+                <div class="card reveal" style="--accent:#8b5cf6">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/70/f6/6d/70f66dde-e567-2723-6012-43f699690e1e/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg" alt="Quizziz icon" loading="lazy">
+                        <div>
+                            <div class="app-name">Quizziz: AI Flashcards &amp; Study</div>
+                            <div class="app-sub">Notes, Homework &amp; Test Prep</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Education</span>
+                        <span class="stars">★ 4.4 <small>(22)</small></span>
+                    </div>
+                    <p class="app-desc">Turn any topic, note, or document into quizzes and flashcards with AI. The ultimate study companion for students, educators, and lifelong learners.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/ph/app/quizziz-ai-flashcards-study/id6480411340" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                        <div class="legal">
+                            <a href="ai-quiz-privacy-policy.html">Privacy</a>
+                            <a href="ai-quiz-terms.html">Terms</a>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="app-name">PPTMaker</h3>
-                <p class="app-description">Create professional PowerPoint presentations with AI. Generate outlines, choose from 15 templates, and export polished PPTX files in minutes.</p>
-                <div class="app-links">
-                    <a href="pptmaker/privacy.html" class="app-link">Privacy Policy</a>
-                    <a href="pptmaker/terms.html" class="app-link">Terms & Conditions</a>
-                </div>
-            </div>
-        </div>
-    </section>
 
-    <footer>
-        <div class="footer-links">
-            <a href="support.html">Support</a>
-            <a href="mailto:bartiquelk@gmail.com">Contact</a>
-        </div>
-        <p class="copyright">&copy; 2025 Kimbytes. All rights reserved.</p>
-    </footer>
+                <!-- EasySlides -->
+                <div class="card reveal" style="--accent:#10b981">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/94/60/0f/94600fa3-0947-c3bb-0969-e2a20066b990/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg" alt="EasySlides icon" loading="lazy">
+                        <div>
+                            <div class="app-name">EasySlides Presentation Maker</div>
+                            <div class="app-sub">Create Instant Slides &amp; PPT</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Productivity</span>
+                        <span class="stars">★ 5.0 <small>(1)</small></span>
+                    </div>
+                    <p class="app-desc">Turn any topic into a professional PowerPoint in seconds. AI outlines, 15 polished templates, and PPTX export — presentations without the busywork.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/ph/app/easyslides-presentation-maker/id6755688032" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                        <div class="legal">
+                            <a href="pptmaker/privacy.html">Privacy</a>
+                            <a href="pptmaker/terms.html">Terms</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Photo Captions AI -->
+                <div class="card reveal" style="--accent:#06b6d4">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/65/fe/1c/65fe1c6a-05fb-efe6-ebcd-f59fe286de56/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg" alt="Photo Captions AI icon" loading="lazy">
+                        <div>
+                            <div class="app-name">AI Caption Generator For Photo</div>
+                            <div class="app-sub">Caption AI &amp; Hashtag Generator</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Social</span>
+                    </div>
+                    <p class="app-desc">The ultimate caption generator. Drop in a photo and get engaging, on-tone captions and hashtags for your social posts — instantly.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/ph/app/ai-caption-generator-for-photo/id6740227582" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                        <div class="legal">
+                            <a href="photo_caption_policy.html">Privacy</a>
+                            <a href="photo_caption_terms.html">Terms</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Plantree -->
+                <div class="card reveal" style="--accent:#22c55e">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/f5/a0/5e/f5a05eb8-69c8-3bf3-e48c-07db54a6cd87/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg" alt="Plantree icon" loading="lazy">
+                        <div>
+                            <div class="app-name">Leaf Identification — Plantree</div>
+                            <div class="app-sub">Plant &amp; Tree Identification AI</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Education</span>
+                    </div>
+                    <p class="app-desc">Point your camera at any plant, tree, or leaf and identify it instantly — with rich facts and care information powered by AI.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/ph/app/leaf-identification-plantree/id6745825727" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Closet.ly -->
+                <div class="card reveal" style="--accent:#f59e0b">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/ee/91/31/ee9131ee-4180-7526-dd2c-534ded17c4db/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg" alt="Closet.ly icon" loading="lazy">
+                        <div>
+                            <div class="app-name">Outfit Planner: Closet.ly</div>
+                            <div class="app-sub">A Closet Organizer Wardrobe</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Lifestyle</span>
+                    </div>
+                    <p class="app-desc">"I have nothing to wear" — solved. Digitize your wardrobe, plan outfits, and get AI styling suggestions from clothes you already own.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/ph/app/outfit-planner-closet-ly/id6749236210" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Monthly Budget -->
+                <div class="card reveal" style="--accent:#3b82f6">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/63/af/ee/63afeecd-2295-b1a1-2736-705108bd24fc/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg" alt="Monthly Budget icon" loading="lazy">
+                        <div>
+                            <div class="app-name">Monthly Budget Finance Tracker</div>
+                            <div class="app-sub">Simple, Good Budget App</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Finance</span>
+                    </div>
+                    <p class="app-desc">Managing money made easy. Set a monthly budget, track spending, and stay on top of your finances with a simple yet powerful tracker.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/ph/app/monthly-budget-finance-tracker/id6742145580" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section class="section" id="tools">
+            <div class="section-head">
+                <h2>Free Web Tools</h2>
+                <p>Experiments and utilities, free to use in your browser</p>
+            </div>
+            <a class="tool-card reveal" href="tools/Wan/">
+                <div class="tool-emoji">🎬</div>
+                <div>
+                    <h3>Wan 2.2 — Text to Video</h3>
+                    <p>Generate AI video from a text prompt with Wan-AI/Wan2.2-T2V-A14B. Bring your own Hugging Face token.</p>
+                </div>
+                <span class="go">Open tool →</span>
+            </a>
+        </section>
+
+        <footer>
+            <div class="footer-links">
+                <a href="https://apps.apple.com/ph/developer/kimbert-bartiquel/id1711135825" target="_blank" rel="noopener">All apps on the App Store</a>
+                <a href="support.html">Support</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="mailto:bartiquelk@gmail.com">Contact</a>
+            </div>
+            <p class="copyright">&copy; 2026 Kimbytes · Kimbert Bartiquel. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // Reveal-on-scroll
+        const io = new IntersectionObserver((entries) => {
+            for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+        }, { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+    </script>
+
+    <!-- Firebase Analytics -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics.js";
+        const firebaseConfig = {
+            apiKey: "AIzaSyC8dpR_-k3YXpCyZTXcekIPnEBiR6GE5Bw",
+            authDomain: "kimbytes-website.firebaseapp.com",
+            projectId: "kimbytes-website",
+            storageBucket: "kimbytes-website.firebasestorage.app",
+            messagingSenderId: "237274037003",
+            appId: "1:237274037003:web:490d02019edd47d87e800e",
+            measurementId: "G-5J5ZCFGFDF"
+        };
+        getAnalytics(initializeApp(firebaseConfig));
+    </script>
 </body>
 </html>

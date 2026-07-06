@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wan 2.2 Text-to-Video — Kimbytes Tools</title>
+  <link rel="icon" type="image/png" href="../../favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --accent: #8b5cf6;
+      --accent-2: #ec4899;
+    }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0f0f23 0%, #1a1a3e 50%, #0f0f23 100%);
+      min-height: 100vh;
+      color: #e2e8f0;
+      padding: 40px 20px 80px;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    header { text-align: center; margin-bottom: 36px; }
+    .badge {
+      display: inline-block; font-size: .72rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: #a5b4fc;
+      background: rgba(139,92,246,.15); border: 1px solid rgba(139,92,246,.3);
+      padding: 5px 12px; border-radius: 999px; margin-bottom: 16px;
+    }
+    h1 {
+      font-size: 2.2rem; font-weight: 700; margin-bottom: 10px;
+      background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sub { color: #94a3b8; font-size: .98rem; line-height: 1.6; }
+    .sub code { background: rgba(255,255,255,.08); padding: 2px 6px; border-radius: 5px; font-size: .85rem; }
+
+    .card {
+      background: linear-gradient(145deg, rgba(255,255,255,.07) 0%, rgba(255,255,255,.02) 100%);
+      border: 1px solid rgba(255,255,255,.1); border-radius: 18px;
+      padding: 28px; margin-bottom: 22px;
+    }
+    label { display: block; font-size: .9rem; font-weight: 600; margin-bottom: 8px; color: #cbd5e1; }
+    .hint { font-weight: 400; color: #64748b; font-size: .8rem; }
+    .field { margin-bottom: 20px; }
+    .field:last-child { margin-bottom: 0; }
+
+    input[type="text"], input[type="password"], textarea, select {
+      width: 100%; padding: 12px 14px; font-size: 1rem; color: #e2e8f0;
+      background: rgba(15,15,35,.6); border: 1px solid #334155; border-radius: 10px;
+      font-family: inherit; transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(139,92,246,.2);
+    }
+    textarea { resize: vertical; min-height: 96px; line-height: 1.5; }
+    select { appearance: none; cursor: pointer;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 14px center; padding-right: 40px;
+    }
+    .token-row { position: relative; }
+    .token-row .toggle {
+      position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+      background: transparent; border: 0; color: #94a3b8; cursor: pointer; font-size: .8rem; padding: 6px 8px;
+    }
+    .token-row .toggle:hover { color: #e2e8f0; }
+    .remember { display: flex; align-items: center; gap: 8px; margin-top: 10px; font-size: .82rem; color: #94a3b8; }
+    .remember input { width: 16px; height: 16px; accent-color: var(--accent); cursor: pointer; }
+    .remember label { margin: 0; font-weight: 400; color: #94a3b8; cursor: pointer; }
+
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .row2 { grid-template-columns: 1fr; } }
+
+    button.generate {
+      width: 100%; padding: 15px; font-size: 1.05rem; font-weight: 600; color: #fff;
+      border: 0; border-radius: 12px; cursor: pointer;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      transition: transform .15s, opacity .2s; margin-top: 4px;
+    }
+    button.generate:hover:not(:disabled) { transform: translateY(-2px); }
+    button.generate:disabled { opacity: .55; cursor: not-allowed; }
+
+    .status { display: none; align-items: center; gap: 12px; margin-top: 18px;
+      padding: 14px 16px; border-radius: 10px; font-size: .92rem; }
+    .status.show { display: flex; }
+    .status.working { background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.3); color: #c4b5fd; }
+    .status.error { background: rgba(239,68,68,.12); border: 1px solid rgba(239,68,68,.35); color: #fca5a5; }
+    .status.ok { background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.35); color: #6ee7b7; }
+    .spinner {
+      width: 18px; height: 18px; border: 2px solid rgba(196,181,253,.3);
+      border-top-color: #c4b5fd; border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .result { display: none; }
+    .result.show { display: block; }
+    video { width: 100%; border-radius: 12px; background: #000; display: block; margin-bottom: 14px; }
+    .download {
+      display: inline-block; text-decoration: none; color: #fff; font-weight: 600; font-size: .92rem;
+      background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.15);
+      padding: 10px 18px; border-radius: 10px; transition: background .2s;
+    }
+    .download:hover { background: rgba(255,255,255,.18); }
+
+    footer { text-align: center; margin-top: 30px; color: #64748b; font-size: .82rem; line-height: 1.6; }
+    footer a { color: #a5b4fc; text-decoration: none; }
+    footer a:hover { color: #fff; }
+    .back { display: inline-block; margin-bottom: 24px; color: #94a3b8; text-decoration: none; font-size: .9rem; }
+    .back:hover { color: #fff; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <a href="../../index.html" class="back">← Kimbytes</a>
+
+    <header>
+      <span class="badge">✨ AI Video</span>
+      <h1>Wan 2.2 — Text to Video</h1>
+      <p class="sub">Generate video from a text prompt using <code>Wan-AI/Wan2.2-T2V-A14B</code> via Hugging&nbsp;Face Inference Providers.</p>
+    </header>
+
+    <div class="card">
+      <div class="field">
+        <label for="token">Hugging Face API Token
+          <span class="hint">— get one at <a href="https://huggingface.co/settings/tokens" target="_blank" rel="noopener" style="color:#a5b4fc">hf.co/settings/tokens</a></span>
+        </label>
+        <p class="hint" style="margin:-2px 0 8px; line-height:1.5;">⚠️ The token must have the <b style="color:#c4b5fd">“Make calls to Inference Providers”</b> permission. Create a <i>Fine-grained</i> token and tick that box under <i>Inference</i> — a plain Read token is not enough.</p>
+        <div class="token-row">
+          <input type="password" id="token" placeholder="hf_xxxxxxxxxxxxxxxxxxxxxxxx" autocomplete="off" spellcheck="false" />
+          <button type="button" class="toggle" id="toggleToken">show</button>
+        </div>
+        <div class="remember">
+          <input type="checkbox" id="remember" />
+          <label for="remember">Remember token on this device (stored locally in your browser)</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="prompt">Prompt</label>
+        <textarea id="prompt" placeholder="A young man walking on the street, cinematic, golden hour">A young man walking on the street, cinematic, golden hour</textarea>
+      </div>
+
+      <div class="field">
+        <label for="negative">Negative prompt <span class="hint">(optional)</span></label>
+        <input type="text" id="negative" placeholder="blurry, low quality, distorted" />
+      </div>
+
+      <button class="generate" id="generate">Generate Video</button>
+
+      <div class="status" id="status">
+        <span class="spinner" id="spinner"></span>
+        <span id="statusText"></span>
+      </div>
+    </div>
+
+    <div class="card result" id="result">
+      <video id="video" controls autoplay loop muted playsinline></video>
+      <a class="download" id="download" download="wan2.2-video.mp4">⬇ Download video</a>
+    </div>
+
+    <footer>
+      Runs entirely in your browser — your token is sent only to Hugging&nbsp;Face, never to Kimbytes.<br />
+      Generation typically takes a few minutes. Model: <a href="https://huggingface.co/Wan-AI/Wan2.2-T2V-A14B" target="_blank" rel="noopener">Wan-AI/Wan2.2-T2V-A14B</a>
+    </footer>
+  </div>
+
+  <script>
+    // All requests go to Hugging Face's router ONLY (router.huggingface.co),
+    // which forwards to fal.ai server-side. The token never touches fal directly.
+    const ROUTER = "https://router.huggingface.co/fal-ai";
+    const SUBMIT_URL = ROUTER + "/fal-ai/wan/v2.2-a14b/text-to-video?_subdomain=queue";
+
+    const $ = (id) => document.getElementById(id);
+    const tokenEl = $("token"), promptEl = $("prompt"),
+          negativeEl = $("negative"), btn = $("generate"),
+          statusBox = $("status"), statusText = $("statusText"), spinner = $("spinner"),
+          resultBox = $("result"), videoEl = $("video"), downloadEl = $("download"),
+          rememberEl = $("remember"), toggleEl = $("toggleToken");
+
+    const STORE_KEY = "kimbytes_hf_token";
+
+    // Restore remembered token
+    const saved = localStorage.getItem(STORE_KEY);
+    if (saved) { tokenEl.value = saved; rememberEl.checked = true; }
+
+    toggleEl.addEventListener("click", () => {
+      const show = tokenEl.type === "password";
+      tokenEl.type = show ? "text" : "password";
+      toggleEl.textContent = show ? "hide" : "show";
+    });
+
+    function setStatus(kind, text, showSpinner) {
+      statusBox.className = "status show " + kind;
+      spinner.style.display = showSpinner ? "block" : "none";
+      statusText.textContent = text;
+    }
+    function clearStatus() { statusBox.className = "status"; }
+
+    let objectUrl = null;
+
+    btn.addEventListener("click", async () => {
+      const token = tokenEl.value.trim();
+      const prompt = promptEl.value.trim();
+
+      if (!token) { setStatus("error", "Please paste your Hugging Face API token.", false); return; }
+      if (!token.startsWith("hf_")) {
+        setStatus("error", `That doesn't look like a Hugging Face token — it must start with "hf_". You may have copied the token name instead of its value, or only part of it. Copy the full token value from hf.co/settings/tokens.`, false);
+        return;
+      }
+      if (!prompt) { setStatus("error", "Please enter a prompt.", false); return; }
+
+      // Persist / clear token per checkbox
+      if (rememberEl.checked) localStorage.setItem(STORE_KEY, token);
+      else localStorage.removeItem(STORE_KEY);
+
+      btn.disabled = true;
+      resultBox.classList.remove("show");
+      if (objectUrl) { URL.revokeObjectURL(objectUrl); objectUrl = null; }
+
+      const started = Date.now();
+      let queueNote = "";
+      const tick = setInterval(() => {
+        const s = Math.floor((Date.now() - started) / 1000);
+        setStatus("working", `Generating…${queueNote} ${s}s elapsed (this can take a few minutes)`, true);
+      }, 1000);
+      setStatus("working", "Generating… 0s elapsed (this can take a few minutes)", true);
+
+      try {
+        const headers = { "Authorization": "Bearer " + token, "Content-Type": "application/json" };
+        const payload = { prompt };
+        const negative = negativeEl.value.trim();
+        if (negative) payload.negative_prompt = negative;
+
+        // 1. Submit to fal's queue via the HF router
+        const submitRes = await fetch(SUBMIT_URL, { method: "POST", headers, body: JSON.stringify(payload) });
+        if (!submitRes.ok) throw new Error(`submit ${submitRes.status}: ${await submitRes.text()}`);
+        const job = await submitRes.json();
+        if (!job.request_id || !job.response_url) throw new Error("Malformed queue response: " + JSON.stringify(job).slice(0, 200));
+
+        // 2. Poll status via the router (rewrite fal's queue URLs onto the router host)
+        const modelPath = new URL(job.response_url).pathname; // e.g. /fal-ai/wan/requests/<id>
+        const statusUrl = `${ROUTER}${modelPath}/status?_subdomain=queue`;
+        const resultUrl = `${ROUTER}${modelPath}?_subdomain=queue`;
+
+        let status = job.status;
+        while (status !== "COMPLETED") {
+          await new Promise(r => setTimeout(r, 1500));
+          const sRes = await fetch(statusUrl, { headers: { "Authorization": "Bearer " + token } });
+          if (!sRes.ok) throw new Error(`status ${sRes.status}: ${await sRes.text()}`);
+          const s = await sRes.json();
+          status = s.status;
+          queueNote = (status === "IN_QUEUE" && s.queue_position != null) ? ` in queue #${s.queue_position} —` : "";
+        }
+
+        // 3. Fetch the result, then the video itself
+        const rRes = await fetch(resultUrl, { headers: { "Authorization": "Bearer " + token } });
+        if (!rRes.ok) throw new Error(`result ${rRes.status}: ${await rRes.text()}`);
+        const result = await rRes.json();
+        const videoUrl = result?.video?.url;
+        if (!videoUrl) throw new Error("No video URL in result: " + JSON.stringify(result).slice(0, 200));
+
+        const vRes = await fetch(videoUrl);
+        const video = await vRes.blob();
+
+        clearInterval(tick);
+        objectUrl = URL.createObjectURL(video);
+        videoEl.src = objectUrl;
+        downloadEl.href = objectUrl;
+        resultBox.classList.add("show");
+        const took = Math.floor((Date.now() - started) / 1000);
+        setStatus("ok", `Done in ${took}s ✓`, false);
+        resultBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } catch (err) {
+        clearInterval(tick);
+        console.error(err);
+        let msg = err?.message || String(err);
+        if (/invalid username or password|401|unauthor/i.test(msg))
+          msg = "Hugging Face rejected the token (401). Make sure you copied the full token VALUE (starts with hf_) — and that it's a Fine-grained token with “Make calls to Inference Providers” enabled.";
+        else if (/402|payment|credit|quota|exceeded|insufficient/i.test(msg))
+          msg = "Billing/quota issue (402). Wan 2.2 is a paid model — add credits or a payment method to your Hugging Face account (Settings → Billing), or your monthly included credits ran out.";
+        else if (/403|permission|scope/i.test(msg))
+          msg = "Your token can't call Inference Providers (403). Fix: hf.co/settings/tokens → Fine-grained token → enable “Make calls to Inference Providers”.";
+        setStatus("error", "Failed: " + msg, false);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
