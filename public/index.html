@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kimbytes — AI-Powered Apps by Kimbert Bartiquel</title>
-    <meta name="description" content="Kimbytes builds AI-powered iOS apps: Viral Trends, Quizziz AI Flashcards, EasySlides, Photo Captions AI, Plantree, Closet.ly, and Monthly Budget.">
+    <title>Kimbert Bartiquel — Indie iOS Developer | Kimbytes</title>
+    <meta name="description" content="Kimbert Bartiquel is an indie iOS developer running Kimbytes, a one-person app studio. Development, backends, AI, paywalls, ASO and marketing — all done solo. 7 apps live on the App Store.">
     <link rel="icon" type="image/png" href="favicon.png">
     <link rel="manifest" href="manifest.json">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -62,7 +62,13 @@
         @media (max-width: 560px) { .nav-links { display: none; } }
 
         /* ---------- hero ---------- */
-        .hero { text-align: center; padding: 90px 0 70px; }
+        .hero { text-align: center; padding: 64px 0 60px; }
+        .hero-photo {
+            width: 116px; height: 116px; border-radius: 50%;
+            object-fit: cover; margin-bottom: 22px;
+            border: 3px solid rgba(255,255,255,0.14);
+            box-shadow: 0 0 0 6px rgba(99,102,241,0.14), 0 18px 44px rgba(0,0,0,0.45);
+        }
         .hero-badge {
             display: inline-flex; align-items: center; gap: 8px;
             font-size: 0.8rem; font-weight: 600; color: #a5b4fc;
@@ -82,8 +88,23 @@
         }
         .hero p {
             font-size: 1.15rem; color: var(--muted); line-height: 1.7;
-            max-width: 560px; margin: 0 auto 40px;
+            max-width: 640px; margin: 0 auto 34px;
         }
+        .hero p b { color: var(--text); font-weight: 600; }
+
+        .btn-row { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 44px; }
+        .btn {
+            display: inline-flex; align-items: center; gap: 9px;
+            text-decoration: none; font-weight: 600; font-size: 0.95rem;
+            padding: 13px 24px; border-radius: 13px;
+            transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+        }
+        .btn svg { width: 18px; height: 18px; }
+        .btn-primary { background: #fff; color: #0a0a1a; }
+        .btn-primary:hover { transform: scale(1.04); box-shadow: 0 8px 28px rgba(255,255,255,0.18); }
+        .btn-ghost { color: var(--text); border: 1px solid rgba(255,255,255,0.18); background: rgba(255,255,255,0.04); }
+        .btn-ghost:hover { border-color: rgba(255,255,255,0.4); transform: scale(1.03); }
+
         .hero-stats {
             display: flex; justify-content: center; gap: 48px; flex-wrap: wrap;
         }
@@ -91,11 +112,43 @@
         .stat b { display: block; font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; }
         .stat span { font-size: 0.82rem; color: var(--muted); font-weight: 500; }
 
+        /* ---------- skills ---------- */
+        .skills-band { padding: 26px 0 8px; }
+        .skills {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;
+            max-width: 860px; margin: 0 auto;
+        }
+        .skill {
+            font-size: 0.85rem; font-weight: 600; color: var(--muted);
+            border: 1px solid var(--line); background: rgba(255,255,255,0.035);
+            padding: 8px 16px; border-radius: 999px;
+            transition: color .2s, border-color .2s;
+        }
+        .skill:hover { color: #fff; border-color: rgba(255,255,255,0.3); }
+
+        /* ---------- what i do ---------- */
+        .pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+        .pillar {
+            background: linear-gradient(160deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.012) 100%);
+            border: 1px solid var(--line); border-radius: 18px; padding: 24px;
+        }
+        .pillar .ico {
+            width: 44px; height: 44px; border-radius: 12px; margin-bottom: 14px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+            background: rgba(99,102,241,0.16); border: 1px solid rgba(99,102,241,0.3);
+        }
+        .pillar h3 { font-size: 1rem; font-weight: 700; margin-bottom: 7px; }
+        .pillar p { font-size: 0.87rem; color: var(--muted); line-height: 1.6; }
+
         /* ---------- section headers ---------- */
         .section { padding: 50px 0; }
+        .eyebrow {
+            display: block; text-align: center; font-size: 0.78rem; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase; color: #a5b4fc; margin-bottom: 10px;
+        }
         .section-head { text-align: center; margin-bottom: 44px; }
         .section-head h2 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 10px; }
-        .section-head p { color: var(--muted); font-size: 1rem; }
+        .section-head p { color: var(--muted); font-size: 1rem; max-width: 620px; margin: 0 auto; }
 
         /* ---------- app grid ---------- */
         .grid {
@@ -158,6 +211,16 @@
         .legal a { font-size: 0.75rem; color: var(--muted); text-decoration: none; transition: color .2s; }
         .legal a:hover { color: #fff; }
 
+        /* ---------- client work ---------- */
+        .client-cta {
+            text-align: center;
+            background: linear-gradient(120deg, rgba(99,102,241,0.14), rgba(236,72,153,0.08));
+            border: 1px solid rgba(99,102,241,0.3);
+            border-radius: 22px; padding: 44px 30px;
+        }
+        .client-cta h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 10px; }
+        .client-cta p { color: var(--muted); font-size: 0.95rem; line-height: 1.7; max-width: 560px; margin: 0 auto 24px; }
+
         /* ---------- tools ---------- */
         .tool-card {
             display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
@@ -176,6 +239,11 @@
         .tool-card h3 { font-size: 1.1rem; font-weight: 700; margin-bottom: 4px; }
         .tool-card p { font-size: 0.88rem; color: var(--muted); }
         .tool-card .go { margin-left: auto; color: #a5b4fc; font-weight: 600; font-size: 0.9rem; white-space: nowrap; }
+
+        /* ---------- contact ---------- */
+        .contact-box { text-align: center; padding: 20px 0 10px; }
+        .contact-box h2 { font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
+        .contact-box p { color: var(--muted); max-width: 540px; margin: 0 auto 30px; line-height: 1.7; }
 
         /* ---------- footer ---------- */
         footer {
@@ -204,28 +272,96 @@
                 <span>Kimbytes</span>
             </a>
             <div class="nav-links">
-                <a href="#apps">Apps</a>
-                <a href="#tools">Tools</a>
-                <a href="support.html">Support</a>
-                <a href="https://apps.apple.com/ph/developer/kimbert-bartiquel/id1711135825" target="_blank" rel="noopener">App&nbsp;Store</a>
+                <a href="#work">What I Do</a>
+                <a href="#apps">My Apps</a>
+                <a href="#clients">Client Work</a>
+                <a href="#contact">Contact</a>
             </div>
         </nav>
 
+        <!-- ============ HERO: ABOUT KIM ============ -->
         <section class="hero">
-            <div class="hero-badge"><span class="dot"></span> 7 apps live on the App&nbsp;Store</div>
-            <h1>Apps that put <span class="grad">AI to work</span><br>for everyday life</h1>
-            <p>Kimbytes builds fast, focused iOS apps — from viral content creation and AI study tools to plant identification and budgeting.</p>
+            <img class="hero-photo" src="profile.jpg" alt="Kimbert Bartiquel">
+            <div class="hero-badge"><span class="dot"></span> Indie developer · One-person app studio · Open to opportunities</div>
+            <h1>Hi, I'm Kimbert.<br>I ship apps <span class="grad">end-to-end, solo</span>.</h1>
+            <p>I'm an <b>indie iOS developer</b> and Kimbytes is my one-person app studio. Every app here is all my own heavy lifting — <b>product design, Flutter development, Node.js/Firebase backends, AI integrations, paywalls &amp; subscriptions, ASO, App Store screenshots and paid-ads marketing</b>. No team, no handoffs: from first sketch to App&nbsp;Store to growth, it's all me. 7 apps live and earning.</p>
+            <div class="btn-row">
+                <a class="btn btn-primary" href="mailto:bartiquelk@gmail.com?subject=Work%20opportunity">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Hire Me
+                </a>
+                <a class="btn btn-ghost" href="https://www.linkedin.com/in/kimbert-bartiquel-4686808a/" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                    LinkedIn
+                </a>
+                <a class="btn btn-ghost" href="https://github.com/kbartiquel" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33s1.71.11 2.5.33c1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z"/></svg>
+                    GitHub
+                </a>
+                <a class="btn btn-ghost" href="https://apps.apple.com/ph/developer/kimbert-bartiquel/id1711135825" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    App Store
+                </a>
+            </div>
             <div class="hero-stats">
-                <div class="stat"><b>7</b><span>Apps shipped</span></div>
-                <div class="stat"><b>AI-first</b><span>Every product</span></div>
-                <div class="stat"><b>iOS</b><span>Built native</span></div>
+                <div class="stat"><b>1K+</b><span>Downloads every month</span></div>
+                <div class="stat"><b>End-to-end</b><span>Idea → ship → grow, solo</span></div>
             </div>
         </section>
 
-        <section class="section" id="apps">
+        <!-- ============ SKILLS ============ -->
+        <div class="skills-band reveal">
+            <div class="skills">
+                <span class="skill">Flutter / Dart</span>
+                <span class="skill">iOS &amp; Android</span>
+                <span class="skill">Node.js / Express</span>
+                <span class="skill">Firebase · Firestore · Cloud Functions</span>
+                <span class="skill">OpenAI · Gemini · xAI APIs</span>
+                <span class="skill">RevenueCat / StoreKit</span>
+                <span class="skill">Paywall &amp; Subscription Design</span>
+                <span class="skill">ASO &amp; Apple Search Ads</span>
+                <span class="skill">Analytics &amp; Attribution</span>
+                <span class="skill">Web (HTML/CSS/JS)</span>
+            </div>
+        </div>
+
+        <!-- ============ WHAT I DO ============ -->
+        <section class="section" id="work">
+            <span class="eyebrow">What I do</span>
             <div class="section-head">
-                <h2>The Apps</h2>
-                <p>Everything live on the App Store, by <a href="https://apps.apple.com/ph/developer/kimbert-bartiquel/id1711135825" target="_blank" rel="noopener" style="color:#a5b4fc;text-decoration:none">Kimbert Bartiquel</a></p>
+                <h2>One indie developer, the whole lifecycle</h2>
+                <p>What usually takes a team of four, I do alone — and my live apps are the proof. Fewer handoffs, faster shipping, and one person who owns the outcome from commit to conversion.</p>
+            </div>
+            <div class="pillars">
+                <div class="pillar reveal">
+                    <div class="ico">📱</div>
+                    <h3>Build</h3>
+                    <p>Native-feel Flutter apps for iOS &amp; Android with clean, maintainable architecture — plus the Node.js/Firebase backend behind them.</p>
+                </div>
+                <div class="pillar reveal">
+                    <div class="ico">🤖</div>
+                    <h3>Integrate AI</h3>
+                    <p>Production AI features — text generation, image generation, vision — with OpenAI, Gemini and xAI, built with cost tracking and fallbacks.</p>
+                </div>
+                <div class="pillar reveal">
+                    <div class="ico">💳</div>
+                    <h3>Monetize</h3>
+                    <p>Subscriptions, trials, paywalls and lifetime plans with RevenueCat — plus remote-config A/B paywall testing and webhook-driven revenue analytics.</p>
+                </div>
+                <div class="pillar reveal">
+                    <div class="ico">📈</div>
+                    <h3>Grow</h3>
+                    <p>App Store Optimization, keyword strategy, screenshot design, Apple Search Ads, and analytics dashboards that tie spend to revenue.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============ MY APPS ============ -->
+        <section class="section" id="apps">
+            <span class="eyebrow">My own products</span>
+            <div class="section-head">
+                <h2>Apps I've Shipped</h2>
+                <p>Every one of these is a solo build — I did the design, code, backend, paywall, ASO and marketing. All live on the <a href="https://apps.apple.com/ph/developer/kimbert-bartiquel/id1711135825" target="_blank" rel="noopener" style="color:#a5b4fc;text-decoration:none">App Store</a></p>
             </div>
 
             <div class="grid">
@@ -399,10 +535,116 @@
             </div>
         </section>
 
+        <!-- ============ CLIENT WORK ============ -->
+        <section class="section" id="clients">
+            <span class="eyebrow">Client work</span>
+            <div class="section-head">
+                <h2>Helping Clients Grow</h2>
+                <p>For clients, I bring the same end-to-end playbook I use on my own apps — I don't just deliver code, I help grow the business behind it: shipping the product, wiring up monetization, and driving downloads with ASO and marketing.</p>
+            </div>
+
+            <div class="grid" style="margin-bottom:28px">
+
+                <!-- Riddled (client: Redlinerev LLC) -->
+                <div class="card reveal" style="--accent:#f43f5e">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/8c/7d/ef/8c7def2f-dac1-3e38-5b47-459927790a16/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg" alt="Riddled icon" loading="lazy">
+                        <div>
+                            <div class="app-name">Riddled: Daily Brain Teasers</div>
+                            <div class="app-sub">for Redlinerev LLC</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Games · Word</span>
+                        <span class="stars">★ 4.6 <small>(9)</small></span>
+                    </div>
+                    <p class="app-desc">A daily brain-teaser game with hundreds of riddles across wordplay, logic, science, history and more. Built and shipped end-to-end — app, backend, and App&nbsp;Store launch.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/us/app/riddled-daily-brain-teasers/id6760156166" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                    </div>
+                </div>
+
+                <!-- EmpowerMedAI (client: Mobius Ventures LLC) -->
+                <div class="card reveal" style="--accent:#14b8a6">
+                    <div class="card-top">
+                        <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/5a/40/23/5a402333-5ba8-9e92-a9fd-bff88d9f3e9e/AppIcon-0-0-1x_U007emarketing-0-8-0-0-85-220.png/512x512bb.jpg" alt="EmpowerMedAI icon" loading="lazy">
+                        <div>
+                            <div class="app-name">EmpowerMedAI: Gyn Onc QBank</div>
+                            <div class="app-sub">for Mobius Ventures LLC</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Medical · Education</span>
+                        <span class="stars">★ 4.9 <small>(16)</small></span>
+                    </div>
+                    <p class="app-desc">A specialist quiz-based learning platform for Gynecologic Oncology — a full QBank used by residents, fellows and attending physicians to study clinical topics.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://apps.apple.com/us/app/empowermedai-gyn-onc-qbank/id6469111508" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                            App Store
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Aloe dating app (built at Adam Block Design; later sold & rebranded) -->
+                <div class="card reveal" style="--accent:#22c55e">
+                    <div class="card-top">
+                        <img class="app-icon" src="aloe-icon.png" alt="Aloe icon" style="background:#fff" loading="lazy">
+                        <div>
+                            <div class="app-name">Aloe — Dating App</div>
+                            <div class="app-sub">for Adam Block Design</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Dating · Social</span>
+                        <span class="chip" style="--accent:#f59e0b">Acquired &amp; relaunched</span>
+                    </div>
+                    <p class="app-desc">A complete dating app built from the ground up — Flutter client, GraphQL API on a Node.js/TypeScript backend, real-time chat over WebSockets, and Firebase auth &amp; push. The product was later acquired and relaunched on Google Play by its new owners.</p>
+                    <div class="card-actions">
+                        <a class="store-btn" href="https://play.google.com/store/apps/details?id=com.datealoe.app&amp;hl=en" target="_blank" rel="noopener">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 20.5v-17c0-.59.34-1.11.84-1.35L13.69 12l-9.85 9.85c-.5-.25-.84-.76-.84-1.35m13.81-5.38L6.05 21.34l8.49-8.49 2.27 2.27m3.35-4.31c.34.27.59.69.59 1.19s-.22.9-.57 1.18l-2.29 1.32-2.5-2.5 2.5-2.5 2.27 1.31M6.05 2.66l10.76 6.22-2.27 2.27-8.49-8.49z"/></svg>
+                            Google Play
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Private client project (TestFlight only — name withheld per client) -->
+                <div class="card reveal" style="--accent:#6366f1">
+                    <div class="card-top">
+                        <div class="app-icon" style="display:flex;align-items:center;justify-content:center;font-size:1.5rem;background:linear-gradient(135deg,#6366f1,#8b5cf6)">🔒</div>
+                        <div>
+                            <div class="app-name">Private Client Project</div>
+                            <div class="app-sub">for Mobius Ventures LLC</div>
+                        </div>
+                    </div>
+                    <div class="meta">
+                        <span class="chip">Health &amp; Fitness</span>
+                        <span class="chip" style="--accent:#f59e0b">TestFlight beta</span>
+                    </div>
+                    <p class="app-desc">A full coaching platform app — training, nutrition, habits, progress tracking and coach messaging. I build the entire Flutter app, integrating with the client's Ruby backend. In private beta and under wraps until the client launches — happy to walk through the work in a conversation.</p>
+                </div>
+
+            </div>
+
+            <div class="client-cta reveal">
+                <h3>Have a project — or an app that isn't growing?</h3>
+                <p>I take on select client work: full app builds, AI feature integrations, backend &amp; Firebase work, App Store growth (ASO, screenshots, paid ads), or rescuing a stalled project. Everything I've learned shipping and growing my own apps, applied to yours. Case studies and references on request.</p>
+                <a class="btn btn-primary" href="mailto:bartiquelk@gmail.com?subject=Project%20inquiry">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                    Let's talk
+                </a>
+            </div>
+        </section>
+
+        <!-- ============ FREE TOOLS ============ -->
         <section class="section" id="tools">
+            <span class="eyebrow">Experiments</span>
             <div class="section-head">
                 <h2>Free Web Tools</h2>
-                <p>Experiments and utilities, free to use in your browser</p>
+                <p>Utilities and experiments, free to use in your browser</p>
             </div>
             <a class="tool-card reveal" href="tools/Wan/">
                 <div class="tool-emoji">🎬</div>
@@ -412,6 +654,22 @@
                 </div>
                 <span class="go">Open tool →</span>
             </a>
+        </section>
+
+        <!-- ============ CONTACT ============ -->
+        <section class="section" id="contact">
+            <div class="contact-box reveal">
+                <h2>Let's work together</h2>
+                <p>Whether it's a full-time role, a contract, or an app you want built — I'm happy to chat. The fastest way to reach me is email.</p>
+                <div class="btn-row" style="margin-bottom:0">
+                    <a class="btn btn-primary" href="mailto:bartiquelk@gmail.com">
+                        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                        bartiquelk@gmail.com
+                    </a>
+                    <a class="btn btn-ghost" href="https://www.linkedin.com/in/kimbert-bartiquel-4686808a/" target="_blank" rel="noopener">LinkedIn</a>
+                    <a class="btn btn-ghost" href="https://github.com/kbartiquel" target="_blank" rel="noopener">GitHub</a>
+                </div>
+            </div>
         </section>
 
         <footer>
